@@ -26,6 +26,9 @@ namespace Quiz_Test.ViewModel
         int tmp_index = 0;
         int iter_odp = 0;
         int iter_odp_pomoc =4;
+        int count_right_answers = 0;
+        long correct_check = 1;
+        int correct_count = 8;
         /* static void X()
          {
              Quiz.ReadData();
@@ -45,21 +48,31 @@ namespace Quiz_Test.ViewModel
                         //Quiz.OneElementTest(0);
                         //Console.WriteLine(questions[3].QuestionName);
                         //Console.WriteLine(answers[0].AnswerText);
-                        if (questions[0].QuestionID == answers[0].AnswerID)
+                        try
                         {
-                            Console.WriteLine("Dziala");
+                            if (questions[0].QuestionID == answers[0].AnswerID)
+                            {
+                                Console.WriteLine("Dziala");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Nie dziala");
+                            }
+                            //iter_odp += 4;
+                            //iter_odp_pomoc += 4;
+                            //isRun = !isRun;
+                            //conn.Close();
+                            //answer = TakeAnswer2();
+                            /*iter_odp_pomoc += 4;
+                            TakeAnswer(4);*/
+                            //Tmp_answer();
+                            Console.WriteLine(count_right_answers);
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            Console.WriteLine("Nie dziala");
+                            Console.WriteLine(ex.Message);
                         }
-                        //iter_odp += 4;
-                        //iter_odp_pomoc += 4;
-                        //isRun = !isRun;
-                        //conn.Close();
-                        //answer = TakeAnswer2();
-                        iter_odp_pomoc += 4;
-                        TakeAnswer(4);
+                        
                     }
                     ,
                     (o) => !isRun
@@ -70,6 +83,10 @@ namespace Quiz_Test.ViewModel
         public string Name
         {
             get => questions[tmp_index].QuestionName;
+        }
+        public long QuizID
+        {
+            get => quizzes[tmp_index].QuizID;
         }
         public string FirstAnswer
         {
@@ -95,7 +112,14 @@ namespace Quiz_Test.ViewModel
             conn.Close();
             return answer1;
         }
+        public void Tmp_answer()
+        {
+            /*Console.WriteLine(correct_count);
+            Console.WriteLine(correct_count+2);*/
+            Console.WriteLine(answers[correct_count+1].AnswerIsCorrect);
+        }
         private string answer_tmp = null;
+        #region AnswerStrings
         public string answer1
         {
             get => TakeAnswer(1);
@@ -117,6 +141,7 @@ namespace Quiz_Test.ViewModel
             get => TakeAnswer(4);
             set => TakeAnswer(4);
         }
+        #endregion
         /*public void Next()
         {
             iter_odp += 4;
@@ -137,6 +162,7 @@ namespace Quiz_Test.ViewModel
                     (o) =>
                     {
                         Button1_Click();
+                        isRun = !isRun;
                     }
                     ,
                     (o) => !isRun
@@ -144,5 +170,159 @@ namespace Quiz_Test.ViewModel
                 return guzik1;
             }
         }
+
+        public void ButtonNext_Click()
+        {
+            Console.WriteLine("Next Question");
+        }
+        private ICommand buttonNext;
+        public ICommand ButtonNext
+        {
+            get
+            {
+                if (buttonNext == null)
+                    buttonNext = new RelayCommand(
+
+                        (o) =>
+                        {
+                            ButtonNext_Click();
+                            isRun = !isRun;
+                        }
+                        ,
+                        (o) => isRun
+                ); 
+               return buttonNext;
+            }
+        }
+        #region CheckIfCorrect
+        public void CheckIfCorrect1()
+        {
+            Console.WriteLine(answers[correct_count].AnswerIsCorrect);
+            if (answers[correct_count].AnswerIsCorrect == correct_check)
+            {
+                count_right_answers++;
+                Console.WriteLine("Dobrze");
+            }
+            else
+            {
+                Console.WriteLine("Zle");
+            }
+        }
+        private ICommand correct1;
+        public ICommand Correct1
+        {
+            get
+            {
+                if (correct1 == null)
+                    correct1 = new RelayCommand(
+
+                    (o) =>
+                    {
+                        CheckIfCorrect1();
+                        //isRun = !isRun;
+                    }
+                    ,
+                    (o) => !isRun
+                    );
+                return correct1;
+            }
+        }
+        public void CheckIfCorrect2()
+        {
+            Console.WriteLine(answers[correct_count + 1].AnswerIsCorrect);
+            if (answers[correct_count+1].AnswerIsCorrect == correct_check)
+            {
+                count_right_answers++;
+                Console.WriteLine("Dobrze");
+            }
+            else 
+            { 
+                Console.WriteLine("Zle"); 
+            }
+        }
+        private ICommand correct2;
+        public ICommand Correct2
+        {
+            get
+            {
+                if (correct2 == null)
+                    correct2 = new RelayCommand(
+
+                    (o) =>
+                    {
+                        CheckIfCorrect2();
+                        //isRun = !isRun;
+                    }
+                    ,
+                    (o) => !isRun
+                    );
+                return correct2;
+            }
+        }
+        public void CheckIfCorrect3()
+        {
+            Console.WriteLine(answers[correct_count + 2].AnswerIsCorrect);
+            if (answers[correct_count+2].AnswerIsCorrect == correct_check)
+            {
+                count_right_answers++;
+                Console.WriteLine("Dobrze");
+            }
+            else 
+            { 
+                Console.WriteLine("Zle"); 
+            }
+        }
+        private ICommand correct3;
+        public ICommand Correct3
+        {
+            get
+            {
+                if (correct3 == null)
+                    correct3 = new RelayCommand(
+
+                    (o) =>
+                    {
+                        CheckIfCorrect3();
+                        //isRun = !isRun;
+                    }
+                    ,
+                    (o) => !isRun
+                    );
+                return correct3;
+            }
+        }
+        public void CheckIfCorrect4()
+        {
+            Console.WriteLine(answers[correct_count + 3].AnswerIsCorrect);
+            if (answers[correct_count + 3].AnswerIsCorrect == correct_check)
+            {
+                count_right_answers++;
+                Console.WriteLine("Dobrze");
+            }
+            else 
+            { 
+                Console.WriteLine("Zle"); 
+            }
+        }
+        private ICommand correct4;
+        public ICommand Correct4
+        {
+            get
+            {
+                if (correct4 == null)
+                    correct4 = new RelayCommand(
+
+                    (o) =>
+                    {
+                        CheckIfCorrect4();
+                        //isRun = !isRun;
+                    }
+                    ,
+                    (o) => !isRun
+                    );
+                return correct4;
+            }
+        }
+        #endregion
     }
 }

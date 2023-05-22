@@ -29,20 +29,23 @@
                     x:Name="button1"
                     Content="{Binding answer1}"
                     FontSize="15"
-                    Command="{Binding Guzik1}"/>
+                    Command="{Binding Correct1}"/>
                    
             <Button Grid.Column="1"
                     x:Name="button2"
                     Content="{Binding answer2}"
-                    FontSize="15"/>
+                    FontSize="15"
+                    Command="{Binding Correct2, Mode=OneWay}"/>
             <Button Grid.Column="2"
                     x:Name="button3"
                     Content="{Binding answer3}"
-                    FontSize="15"/>
+                    FontSize="15"
+                    Command="{Binding Correct3, Mode=OneWay}"/>
             <Button Grid.Column="3"
                     x:Name="button4"
                     Content="{Binding answer4}"
-                    FontSize="15"/>
+                    FontSize="15"
+                    Command="{Binding Correct4, Mode=OneWay}"/>
         </Grid>
 
         <Button Content="{Binding Name}" 
@@ -51,7 +54,11 @@
                 Grid.Column="1"
                 Command="{Binding Wlacz, Mode=OneWay}"
                />
-        
-        
+        <Button Grid.Row="2"
+                Content="{Binding QuizID}"
+                FontSize="20"
+                Command="{Binding ButtonNext, Mode=OneWay}"/>
+
+
     </Grid>
 </Window>
