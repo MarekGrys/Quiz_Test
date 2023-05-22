@@ -13,7 +13,7 @@ namespace Quiz_Test.Model
         public long QuizID { get; set; }
         public string QuizName { get; set; }
 
-        public static SQLiteConnection conn = new SQLiteConnection(@"Data Source=G:\Program Files (x86)\DBTEST\Quiz.db; Version=3");
+        public static SQLiteConnection conn = new SQLiteConnection(@"Data Source=C:\Users\jgrys\Desktop\QUIZDB\Quiz.db; Version=3");
 
         public static List<Quiz> ReadData(SQLiteConnection conn)
         {

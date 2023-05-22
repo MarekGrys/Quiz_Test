@@ -27,7 +27,7 @@
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0"
                     x:Name="button1"
-                    Content="{Binding answer1}"
+                    Content="{Binding Answer1}"
                     FontSize="15"
                     Command="{Binding Correct1}"/>
                    
@@ -52,7 +52,7 @@
                 Margin="5"
                 FontSize="20"
                 Grid.Column="1"
-                Command="{Binding Wlacz, Mode=OneWay}"
+                Command="{Binding Wlacz, Mode=OneWay}" Click="Button_Click_1"
                />
         <Button Grid.Row="2"
                 Content="{Binding QuizID}"

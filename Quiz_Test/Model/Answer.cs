@@ -15,7 +15,7 @@ namespace Quiz_Test.Model
         public long AnswerField { get; set; }
         public long AnswerIsCorrect { get; set; }
 
-        public static SQLiteConnection conn = new SQLiteConnection(@"Data Source=G:\Program Files (x86)\Quiz.db");
+        public static SQLiteConnection conn = new SQLiteConnection(@"Data Source=C:\Users\jgrys\Desktop\QUIZDB\Quiz.db; Version=3");
 
         public static List<Answer> ReadData(SQLiteConnection conn)
         {

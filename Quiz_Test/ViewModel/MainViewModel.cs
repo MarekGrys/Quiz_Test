@@ -15,7 +15,8 @@ namespace Quiz_Test.ViewModel
     class MainViewModel : INotifyPropertyChanged
     {
 
-        static SQLiteConnection conn = new SQLiteConnection(@"Data Source=G:\Program Files (x86)\Quiz.db");
+        #region Zmienne
+        static SQLiteConnection conn = new SQLiteConnection(@"Data Source=C:\Users\jgrys\Desktop\QUIZDB\Quiz.db; Version=3");
         public event PropertyChangedEventHandler PropertyChanged;
         private static bool isRun = false;
         List<Quiz> quizzes = Quiz.ReadData(conn);
@@ -25,10 +26,21 @@ namespace Quiz_Test.ViewModel
         SQLiteCommand command;
         int tmp_index = 0;
         int iter_odp = 0;
-        int iter_odp_pomoc =4;
+        private int iter_odp_pomoc = 4;
+        int Iter_odp_pomoc 
+        {
+            get => iter_odp_pomoc;
+            set
+            {
+                iter_odp_pomoc = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(iter_odp_pomoc)));
+            }
+        }
+        
         int count_right_answers = 0;
         long correct_check = 1;
-        int correct_count = 8;
+        int correct_count = 0;
+        #endregion
         /* static void X()
          {
              Quiz.ReadData();
@@ -50,23 +62,25 @@ namespace Quiz_Test.ViewModel
                         //Console.WriteLine(answers[0].AnswerText);
                         try
                         {
-                            if (questions[0].QuestionID == answers[0].AnswerID)
+                            /*if (questions[0].QuestionID == answers[0].AnswerID)
                             {
                                 Console.WriteLine("Dziala");
                             }
                             else
                             {
                                 Console.WriteLine("Nie dziala");
-                            }
+                            }*/
                             //iter_odp += 4;
                             //iter_odp_pomoc += 4;
                             //isRun = !isRun;
                             //conn.Close();
                             //answer = TakeAnswer2();
-                            /*iter_odp_pomoc += 4;
-                            TakeAnswer(4);*/
+                            iter_odp_pomoc += 4;
+                            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Answer1)));
+                            Answer1 = TakeAnswer(1);
+                            //TakeAnswer(4);
                             //Tmp_answer();
-                            Console.WriteLine(count_right_answers);
+                            //Console.WriteLine(count_right_answers);
                         }
                         catch (Exception ex)
                         {
@@ -98,7 +112,7 @@ namespace Quiz_Test.ViewModel
             List<Answer> answers = Answer.ReadData(conn);
             string answer1 = null;
             conn.Open();
-            for (iter_odp = 0; iter_odp <iter_odp_pomoc; iter_odp++)
+            for (iter_odp = 0; iter_odp <Iter_odp_pomoc; iter_odp++)
             {
                 if (answers[iter_odp].AnswerField == field)
                 {
@@ -120,26 +134,36 @@ namespace Quiz_Test.ViewModel
         }
         private string answer_tmp = null;
         #region AnswerStrings
-        public string answer1
+        public MainViewModel()
         {
-            get => TakeAnswer(1);
-            set => TakeAnswer(1);
+            answer1 = TakeAnswer(1);
+        }
+        private string answer1;
+        public string Answer1
+        {
+            get => answer1;
+            set
+            {
+                answer1 = TakeAnswer(1);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Answer1)));
+            }
+            
         }
         public  string answer2
         {
             get => TakeAnswer(2);
-            set => TakeAnswer(2);
+            //set => TakeAnswer(2);
             
         }
         public string answer3
         {
             get => TakeAnswer(3);
-            set => TakeAnswer(3);
+            //set => TakeAnswer(3);
         }
         public string answer4
         {
             get => TakeAnswer(4);
-            set => TakeAnswer(4);
+            //set => TakeAnswer(4);
         }
         #endregion
         /*public void Next()
