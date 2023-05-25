@@ -16,7 +16,7 @@ namespace Quiz_Test.ViewModel
     {
 
         #region Zmienne
-        static SQLiteConnection conn = new SQLiteConnection(@"Data Source=C:\Users\jgrys\Desktop\QUIZDB\Quiz.db; Version=3");
+        static SQLiteConnection conn = new SQLiteConnection(@"Data Source=G:\Program Files (x86)\DBTEST\Quiz.db; Version=3");
         public event PropertyChangedEventHandler PropertyChanged;
         private static bool isRun = false;
         List<Quiz> quizzes = Quiz.ReadData(conn);
@@ -24,7 +24,16 @@ namespace Quiz_Test.ViewModel
         List<Answer> answers = Answer.ReadData(conn);
         SQLiteDataReader reader;
         SQLiteCommand command;
-        int tmp_index = 0;
+        private int iter_question = 0;
+        int Iter_question
+        {
+            get => iter_question;
+            set
+            {
+                iter_question = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(iter_question)));
+            }
+        }
         int iter_odp = 0;
         private int iter_odp_pomoc = 4;
         int Iter_odp_pomoc 
@@ -41,11 +50,7 @@ namespace Quiz_Test.ViewModel
         long correct_check = 1;
         int correct_count = 0;
         #endregion
-        /* static void X()
-         {
-             Quiz.ReadData();
-         }*/
-
+ 
         private ICommand wlacz;
         public ICommand Wlacz
         {
@@ -56,31 +61,13 @@ namespace Quiz_Test.ViewModel
 
                     (o) =>
                     {
-                        //conn.Open();
-                        //Quiz.OneElementTest(0);
-                        //Console.WriteLine(questions[3].QuestionName);
-                        //Console.WriteLine(answers[0].AnswerText);
                         try
                         {
-                            /*if (questions[0].QuestionID == answers[0].AnswerID)
-                            {
-                                Console.WriteLine("Dziala");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Nie dziala");
-                            }*/
-                            //iter_odp += 4;
-                            //iter_odp_pomoc += 4;
-                            //isRun = !isRun;
-                            //conn.Close();
-                            //answer = TakeAnswer2();
                             iter_odp_pomoc += 4;
-                            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Answer1)));
-                            Answer1 = TakeAnswer(1);
-                            //TakeAnswer(4);
-                            //Tmp_answer();
-                            //Console.WriteLine(count_right_answers);
+                            correct_count += 4;
+                            iter_question++;
+                            Next();
+                            Console.WriteLine(count_right_answers);
                         }
                         catch (Exception ex)
                         {
@@ -94,19 +81,6 @@ namespace Quiz_Test.ViewModel
                 return wlacz;
             }
         }
-        public string Name
-        {
-            get => questions[tmp_index].QuestionName;
-        }
-        public long QuizID
-        {
-            get => quizzes[tmp_index].QuizID;
-        }
-        public string FirstAnswer
-        {
-            get => answers[tmp_index].AnswerText;
-            
-        }
         public string TakeAnswer(int field)
         {
             List<Answer> answers = Answer.ReadData(conn);
@@ -119,24 +93,18 @@ namespace Quiz_Test.ViewModel
                     answer1 = answers[iter_odp].AnswerText;
                 }
             }
-            //iter_odp += 4;
-            //iter_odp_pomoc += 4;
-            Console.WriteLine(iter_odp);
-            Console.WriteLine(iter_odp_pomoc);
             conn.Close();
             return answer1;
         }
-        public void Tmp_answer()
-        {
-            /*Console.WriteLine(correct_count);
-            Console.WriteLine(correct_count+2);*/
-            Console.WriteLine(answers[correct_count+1].AnswerIsCorrect);
-        }
-        private string answer_tmp = null;
         #region AnswerStrings
         public MainViewModel()
         {
             answer1 = TakeAnswer(1);
+            answer2 = TakeAnswer(2);
+            answer3 = TakeAnswer(3);
+            answer4 = TakeAnswer(4);
+            question_view = Take_Question();
+
         }
         private string answer1;
         public string Answer1
@@ -149,28 +117,46 @@ namespace Quiz_Test.ViewModel
             }
             
         }
-        public  string answer2
+        private string answer2;
+        public  string Answer2
         {
-            get => TakeAnswer(2);
-            //set => TakeAnswer(2);
+            get => answer2;
+            set 
+            {
+                answer2 = TakeAnswer(2);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Answer2)));
+            }
             
         }
-        public string answer3
+        private string answer3;
+        public string Answer3
         {
-            get => TakeAnswer(3);
-            //set => TakeAnswer(3);
+            get => answer3;
+            set 
+            {
+                answer3 = TakeAnswer(3);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Answer3)));
+            }
         }
-        public string answer4
+        private string answer4;
+        public string Answer4
         {
-            get => TakeAnswer(4);
-            //set => TakeAnswer(4);
+            get => answer4;
+            set
+            {
+                answer4 = TakeAnswer(4);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Answer4)));
+            }
+        }
+        public void Next()
+        {
+            Answer1 = TakeAnswer(1);
+            Answer2 = TakeAnswer(2);
+            Answer3 = TakeAnswer(3);
+            Answer4 = TakeAnswer(4);
+            QuestionView = Take_Question();
         }
         #endregion
-        /*public void Next()
-        {
-            iter_odp += 4;
-            iter_odp_pomoc += 4;
-        }*/
         public void Button1_Click()
         {
             Console.WriteLine("Dziala");
@@ -217,6 +203,24 @@ namespace Quiz_Test.ViewModel
                 ); 
                return buttonNext;
             }
+        }
+        public string Take_Question()
+        {
+            List<Question> questions = Question.ReadData(conn);
+            string question1 = questions[iter_question].QuestionName;
+            return question1;
+
+        }
+        private string question_view;
+        public string QuestionView
+        {
+            get => question_view;
+            set
+            { 
+                question_view = Take_Question();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(QuestionView)));
+
+            } 
         }
         #region CheckIfCorrect
         public void CheckIfCorrect1()
