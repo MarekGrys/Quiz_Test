@@ -55,9 +55,9 @@
                 Command="{Binding Wlacz, Mode=OneWay}" Click="Button_Click_1"
                />
         <Button Grid.Row="2"
-                Content="{Binding QuizID}"
+                Content="{Binding Sum}"
                 FontSize="20"
-                Command="{Binding ButtonNext, Mode=OneWay}"/>
+                Command="{Binding OpenNewWindowCommand, Mode=OneWay}"/>
 
 
     </Grid>

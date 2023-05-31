@@ -9,6 +9,9 @@ using Quiz_Test.Model;
 using System.Timers;
 using System.Data.SQLite;
 using System.Windows;
+using Prism.Mvvm;
+using Prism.Commands;
+using Quiz_Test.Views;
 
 namespace Quiz_Test.ViewModel
 {
@@ -68,6 +71,7 @@ namespace Quiz_Test.ViewModel
                             iter_question++;
                             Next();
                             Console.WriteLine(count_right_answers);
+
                         }
                         catch (Exception ex)
                         {
@@ -96,7 +100,7 @@ namespace Quiz_Test.ViewModel
             conn.Close();
             return answer1;
         }
-        #region AnswerStrings
+        public ICommand OpenNewWindowCommand { get; }
         public MainViewModel()
         {
             answer1 = TakeAnswer(1);
@@ -104,8 +108,18 @@ namespace Quiz_Test.ViewModel
             answer3 = TakeAnswer(3);
             answer4 = TakeAnswer(4);
             question_view = Take_Question();
+            OpenNewWindowCommand = new RelayCommandViews(OpenNewWindow);
+            sum = count_right_answers;
 
         }
+        private void OpenNewWindow()
+        {
+            FirstView newWindow = new FirstView();
+            newWindow.Show();
+            Application.Current.MainWindow.Close();
+        }
+        #region AnswerStrings
+
         private string answer1;
         public string Answer1
         {
@@ -155,6 +169,7 @@ namespace Quiz_Test.ViewModel
             Answer3 = TakeAnswer(3);
             Answer4 = TakeAnswer(4);
             QuestionView = Take_Question();
+            Sum = count_right_answers;
         }
         #endregion
         public void Button1_Click()
@@ -352,5 +367,21 @@ namespace Quiz_Test.ViewModel
             }
         }
         #endregion
+        #region Sum_Points
+
+        private int sum;
+        public int Sum
+        {
+            get => sum;
+            set
+            {
+                sum = count_right_answers;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Sum)));
+            }
+
+        }
+
+        #endregion
+
     }
 }
