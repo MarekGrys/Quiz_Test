@@ -54,8 +54,9 @@
                 Grid.Column="1"
                 Command="{Binding Wlacz, Mode=OneWay}" Click="Button_Click_1"
                />
-        <Button Grid.Row="2"
-                Content="{Binding Sum}"
+        <Button x:Name="NextView"
+                Grid.Row="2"
+                Content="{Binding Sum, Mode=TwoWay}"
                 FontSize="20"
                 Command="{Binding OpenNewWindowCommand, Mode=OneWay}"/>
 

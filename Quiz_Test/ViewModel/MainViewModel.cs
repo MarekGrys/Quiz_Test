@@ -114,6 +114,7 @@ namespace Quiz_Test.ViewModel
         }
         private void OpenNewWindow()
         {
+            Singleton.Instance.SingletonValue = Sum.ToString();
             FirstView newWindow = new FirstView();
             newWindow.Show();
             Application.Current.MainWindow.Close();
@@ -380,7 +381,7 @@ namespace Quiz_Test.ViewModel
             }
 
         }
-
+        
         #endregion
 
     }

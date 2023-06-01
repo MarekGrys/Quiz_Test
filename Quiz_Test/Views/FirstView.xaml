@@ -10,13 +10,16 @@
         Title="FirstView" Height="450" Width="800">
 
     <Window.DataContext>
-        <vm:MainViewModel x:Name="mainViewModel"/>
+        <vm:ShowEnd x:Name="showEnd"/>
         
     </Window.DataContext>
 
+    
+
     <Grid>
-        <Button Content="{Binding Sum}"
-                FontSize="40"
+        <Button 
+            Content="{Binding Value}"    
+            FontSize="40"
                 />
     </Grid>
 </Window>
