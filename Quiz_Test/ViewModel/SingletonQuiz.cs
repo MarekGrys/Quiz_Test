@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace Quiz_Test.ViewModel 
 {
-    internal class Singleton : INotifyPropertyChanged
+    internal class SingletonQuiz : INotifyPropertyChanged
     {
-        private static Singleton _instance;
+        private static SingletonQuiz _instance;
         private string _singletonValue;
 
-        public static Singleton Instance
+        public static SingletonQuiz Instance
         {
             get
             {
                 if (_instance == null)
-                    _instance = new Singleton();
+                    _instance = new SingletonQuiz();
                 return _instance;
             }
         }

@@ -17,6 +17,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <ListBox Grid.Row="1" 
                  x:Name="ListBox"
@@ -29,5 +30,10 @@
         <ComboBox Grid.Row="2"
                   ItemsSource="{Binding YourCollection}"
                   SelectedItem="{Binding SelectedItem}"/>
+        <Button Grid.Row="3"
+                Content="Wypisz"
+                FontSize="30"
+                Command="{Binding OpenNewWindowCommand}"/>
+
     </Grid>
 </Window>

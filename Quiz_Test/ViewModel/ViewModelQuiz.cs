@@ -25,6 +25,12 @@ namespace Quiz_Test.ViewModel
         public List<Quiz> quizzes = Quiz.ReadData(conn);
         private static bool isRun = false;
         private int tmp_iter = 0;
+        private int iter_id_quizu = 0;
+        long id_quizu = 0;
+        public ViewModelQuiz() 
+        {
+            OpenNewWindowCommand = new RelayCommandViews(OpenNewWindow);
+        }  
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -38,13 +44,22 @@ namespace Quiz_Test.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(tmp_iter)));
             }
         }
+        int Iter_id_quizu
+        {
+            get => iter_id_quizu;
+            set
+            {
+                iter_id_quizu = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(iter_id_quizu)));
+            }
+        }
         public ObservableCollection<string> YourCollection { get; } = new ObservableCollection<string>();
 
         private void LoadQuizFromDatabase()
         {
             foreach (Quiz quiz in quizzes)
             {
-                YourCollection.Add(quizzes[tmp_iter].QuizName.ToString());
+                YourCollection.Add(quizzes[tmp_iter].QuizName);
                 tmp_iter++;
             }
         }
@@ -67,38 +82,70 @@ namespace Quiz_Test.ViewModel
                 return load;
             }
         }
-        /*private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        private string _selectedItem;
 
-            if (sender is ComboBox comboBox)
-            {
-
-                var selectedItem = comboBox.SelectedItem;
-                Console.WriteLine(selectedItem?.ToString());
-            }
-        }
-        *//*void PrintText(object sender, SelectionChangedEventArgs args)
-        {
-            ListBoxItem lbi = ((sender as ListBox).SelectedItem as ListBoxItem);
-        }*//*
-        private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {           
-            if (sender is ListBox ListBox)
-            {            
-                var clickedItem = ListBox.SelectedItem;
-                Console.WriteLine(clickedItem.ToString());
-            }
-        }*/
-        private Quiz _selectedItem;
-        public Quiz SelectedItem
+        public string SelectedItem
         {
             get { return _selectedItem; }
             set
             {
                 _selectedItem = value;
                 OnPropertyChanged(nameof(SelectedItem));
-                Console.WriteLine($"Wybrany element: {SelectedItem.ToString()}");
+                // Dodatkowa logika lub manipulacja wartością zaznaczonego elementu ComboBoxa
             }
+        }
+        private ICommand wypisz;
+        public ICommand Wypisz
+        {
+            get
+            {
+                if (wypisz == null)
+                    wypisz = new RelayCommand(
+
+                    (o) =>
+                    {
+                        Proba();
+                        Znajdz_ID();
+                        SingletonQuiz.Instance.SingletonValue = id_quizu.ToString();
+                        //LoadQuizFromDatabase();
+                        //isRun = !isRun;
+                    }
+                    ,
+                    (o) => !isRun
+                    );
+                return wypisz;
+
+            }
+
+        }
+        public void Proba()
+        {
+            Console.WriteLine(SelectedItem);
+        }
+        public void Znajdz_ID()
+        {
+            foreach (Quiz quiz in quizzes)
+            {
+                
+                if (SelectedItem == quizzes[iter_id_quizu].QuizName)
+                {
+                    id_quizu = quizzes[iter_id_quizu].QuizID; 
+                    break;
+                }
+                iter_id_quizu++;
+            }
+            Console.WriteLine(id_quizu);
+        }
+        public ICommand OpenNewWindowCommand { get; }
+        private void OpenNewWindow()
+        {
+            Proba();
+            Znajdz_ID();
+            SingletonQuiz.Instance.SingletonValue = id_quizu.ToString();
+            MainWindow newWindow = new MainWindow();
+            newWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = newWindow;
         }
 
     }

@@ -22,6 +22,7 @@ namespace Quiz_Test.ViewModel
         static SQLiteConnection conn = new SQLiteConnection(@"Data Source=G:\Program Files (x86)\DBTEST\Quiz.db; Version=3");
         public event PropertyChangedEventHandler PropertyChanged;
         private static bool isRun = false;
+       
         List<Quiz> quizzes = Quiz.ReadData(conn);
         List<Question> questions = Question.ReadData(conn);
         List<Answer> answers = Answer.ReadData(conn);
@@ -66,11 +67,7 @@ namespace Quiz_Test.ViewModel
                     {
                         try
                         {
-                            iter_odp_pomoc += 4;
-                            correct_count += 4;
-                            iter_question++;
-                            Next();
-                            Console.WriteLine(count_right_answers);
+                            
 
                         }
                         catch (Exception ex)
@@ -114,10 +111,27 @@ namespace Quiz_Test.ViewModel
         }
         private void OpenNewWindow()
         {
-            Singleton.Instance.SingletonValue = Sum.ToString();
-            FirstView newWindow = new FirstView();
-            newWindow.Show();
-            Application.Current.MainWindow.Close();
+            Sum = count_right_answers;
+            try
+            {
+                iter_odp_pomoc += 4;
+                correct_count += 4;
+                iter_question++;
+                Next();
+                Console.WriteLine(count_right_answers);
+            }
+            catch (Exception ex)
+            {
+                quizzes.Clear();
+                questions.Clear();
+                answers.Clear();
+                SingletonAnswers.Instance.SingletonValue = Sum.ToString();
+                FirstView newWindow = new FirstView();
+                newWindow.Show();
+                Application.Current.MainWindow.Close();
+                Application.Current.MainWindow = newWindow;
+            }
+            
         }
         #region AnswerStrings
 
@@ -170,7 +184,7 @@ namespace Quiz_Test.ViewModel
             Answer3 = TakeAnswer(3);
             Answer4 = TakeAnswer(4);
             QuestionView = Take_Question();
-            Sum = count_right_answers;
+
         }
         #endregion
         public void Button1_Click()

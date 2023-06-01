@@ -13,13 +13,32 @@
         <vm:ShowEnd x:Name="showEnd"/>
         
     </Window.DataContext>
-
     
 
+
     <Grid>
-        <Button 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" 
             Content="{Binding Value}"    
             FontSize="40"
                 />
-    </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Content="Wybierz następny quiz"
+                    FontSize="30"
+                    Command="{Binding OpenNewWindowCommand}"/>
+            <Button Grid.Column="1"
+                    Content="Wyjdź"
+                    FontSize="30"
+                    Command="{Binding CloseNewWindowCommand}"/>
+        </Grid>
+        </Grid>
 </Window>

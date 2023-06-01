@@ -4,12 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using Quiz_Test.ViewModel;
 
 namespace Quiz_Test.Model
 {
     class Quiz
     {
-
+       /* private long value = long.Parse(Singleton.Instance.SingletonValue);
+        public long Value
+        {
+            get => value;
+        }*/
         public long QuizID { get; set; }
         public string QuizName { get; set; }
 
@@ -37,7 +42,7 @@ namespace Quiz_Test.Model
            conn.Close();
             return quizzes;
         }
-        public static void ReadData()
+        /*public static void ReadData()
         {
             conn.Open();
             List<Quiz> quizzes = Quiz.ReadData(conn);
@@ -60,6 +65,6 @@ namespace Quiz_Test.Model
             List<Quiz> quizzes = Quiz.ReadData(conn);
             Console.WriteLine(quizzes[quizelement].QuizName);
             conn.Close();
-        }
+        }*/
     }
 }

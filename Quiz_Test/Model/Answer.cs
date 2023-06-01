@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quiz_Test.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
@@ -9,6 +10,11 @@ namespace Quiz_Test.Model
 {
     class Answer
     {
+        private static long value = long.Parse(SingletonQuiz.Instance.SingletonValue);
+        public long Value
+        {
+            get => value;
+        }
         public long AnswerID { get; set; }
         public long QuestionID { get; set; }
         public string AnswerText { get; set; }
@@ -25,7 +31,7 @@ namespace Quiz_Test.Model
             SQLiteCommand command;
 
             command = conn.CreateCommand();
-            command.CommandText = "SELECT * FROM Answer";
+            command.CommandText = $"SELECT * FROM Answer WHERE Quiz_ID = {value}";
             reader = command.ExecuteReader();
             
             while (reader.Read())
