@@ -100,7 +100,6 @@ namespace Quiz_Test.ViewModel
             {
                 _selectedItem = value;
                 OnPropertyChanged(nameof(SelectedItem));
-                // Dodatkowa logika lub manipulacja wartością zaznaczonego elementu ComboBoxa
             }
         }
         private ICommand wypisz;
@@ -116,8 +115,6 @@ namespace Quiz_Test.ViewModel
                         Proba();
                         Znajdz_ID();
                         SingletonQuiz.Instance.SingletonValue = id_quizu.ToString();
-                        //LoadQuizFromDatabase();
-                        //isRun = !isRun;
                     }
                     ,
                     (o) => !isRun

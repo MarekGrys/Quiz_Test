@@ -32,7 +32,6 @@ namespace Quiz_Test.Model
             SQLiteCommand command;
 
             command = conn.CreateCommand();
-            //command.Parameters.AddWithValue("@Variable", Question.value);
             command.CommandText = $"SELECT * FROM question WHERE quiz_id = {value}";
             reader = command.ExecuteReader();
 

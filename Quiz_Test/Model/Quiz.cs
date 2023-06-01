@@ -10,11 +10,6 @@ namespace Quiz_Test.Model
 {
     class Quiz
     {
-       /* private long value = long.Parse(Singleton.Instance.SingletonValue);
-        public long Value
-        {
-            get => value;
-        }*/
         public long QuizID { get; set; }
         public string QuizName { get; set; }
 
@@ -43,29 +38,5 @@ namespace Quiz_Test.Model
            conn.Close();
             return quizzes;
         }
-        /*public static void ReadData()
-        {
-            conn.Open();
-            List<Quiz> quizzes = Quiz.ReadData(conn);
-            try
-            {
-                foreach (Quiz quiz in quizzes)
-                {
-                    Console.WriteLine($"{quiz.QuizID}, {quiz.QuizName}");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            conn.Close();
-        }
-        public static void OneElementTest(int quizelement)
-        {
-            conn.Open();
-            List<Quiz> quizzes = Quiz.ReadData(conn);
-            Console.WriteLine(quizzes[quizelement].QuizName);
-            conn.Close();
-        }*/
     }
 }

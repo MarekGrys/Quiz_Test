@@ -46,38 +46,7 @@ namespace Quiz_Test.Model
             }
             conn.Close();
             return answers;
-        }
-       /* public string TakeAnswer1()
-        {
-            List<Answer>answers = Answer.ReadData(conn);
-            string answer1 = null;
-            conn.Open();
-            for (int i = 0; i < 4; i++)
-            {
-                if (answers[i].AnswerField == 1)
-                {
-                    answer1 = answers[i].AnswerText;
-                }
-            }
-            conn.Close();
-            return answer1;
-        }*/
-       /* public string TakeAnswer2()
-        {
-            List<Answer>answers=Answer.ReadData(conn);
-            string answer2 = null;
-            conn.Open();
-            for(int i = 0;i < 4;i++)
-            {
-                if (answers[i].AnswerField == 2)
-                {
-                    answer2 = answers[i].AnswerText;
-                }
-            }
-            conn.Close();
-            return answer2;
-        }*/
-        
+        } 
     }
     
 }
