@@ -26,7 +26,16 @@ namespace Quiz_Test.ViewModel
         private static bool isRun = false;
         private int tmp_iter = 0;
         private int iter_id_quizu = 0;
-        long id_quizu = 0;
+        private long id_quizu = 0;
+        long Id_quizu
+        {
+            get => id_quizu;
+            set
+            {
+                id_quizu = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(id_quizu)));
+            }
+        }
         public ViewModelQuiz() 
         {
             OpenNewWindowCommand = new RelayCommandViews(OpenNewWindow);
@@ -129,19 +138,19 @@ namespace Quiz_Test.ViewModel
                 
                 if (SelectedItem == quizzes[iter_id_quizu].QuizName)
                 {
-                    id_quizu = quizzes[iter_id_quizu].QuizID; 
+                    Id_quizu = quizzes[iter_id_quizu].QuizID; 
                     break;
                 }
                 iter_id_quizu++;
             }
-            Console.WriteLine(id_quizu);
+            Console.WriteLine(Id_quizu);
         }
         public ICommand OpenNewWindowCommand { get; }
         private void OpenNewWindow()
         {
             Proba();
             Znajdz_ID();
-            SingletonQuiz.Instance.SingletonValue = id_quizu.ToString();
+            SingletonQuiz.Instance.SingletonValue = Id_quizu.ToString();
             MainWindow newWindow = new MainWindow();
             newWindow.Show();
             Application.Current.MainWindow.Close();

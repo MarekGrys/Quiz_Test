@@ -24,19 +24,20 @@ namespace Quiz_Test.Model
         {
             
             List<Quiz> quizzes = new List<Quiz>();
+            conn.Close();
             conn.Open();
             SQLiteDataReader reader;
             SQLiteCommand command;
 
             command = conn.CreateCommand();
-            command.CommandText = "SELECT * FROM Quiz";
+            command.CommandText = "SELECT * FROM quiz";
             reader = command.ExecuteReader();
 
             while (reader.Read())
             {
                 Quiz quiz = new Quiz();
-                quiz.QuizID = (long)reader["Quiz_ID"];
-                quiz.QuizName = (string)reader["Quiz_Name"];
+                quiz.QuizID = (long)reader["quiz_id"];
+                quiz.QuizName = (string)reader["quiz_name"];
                 quizzes.Add(quiz);
             }
            conn.Close();

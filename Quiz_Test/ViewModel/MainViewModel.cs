@@ -23,8 +23,8 @@ namespace Quiz_Test.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         private static bool isRun = false;
        
-        List<Quiz> quizzes = Quiz.ReadData(conn);
-        List<Question> questions = Question.ReadData(conn);
+        List<Quiz> quizzes =  Quiz.ReadData(conn);
+        List<Question> questions =  Question.ReadData(conn);
         List<Answer> answers = Answer.ReadData(conn);
         SQLiteDataReader reader;
         SQLiteCommand command;
@@ -112,6 +112,7 @@ namespace Quiz_Test.ViewModel
         private void OpenNewWindow()
         {
             Sum = count_right_answers;
+            isRun = !isRun;
             try
             {
                 iter_odp_pomoc += 4;
@@ -119,6 +120,7 @@ namespace Quiz_Test.ViewModel
                 iter_question++;
                 Next();
                 Console.WriteLine(count_right_answers);
+                
             }
             catch (Exception ex)
             {
@@ -277,7 +279,7 @@ namespace Quiz_Test.ViewModel
                     (o) =>
                     {
                         CheckIfCorrect1();
-                        //isRun = !isRun;
+                        isRun = !isRun;
                     }
                     ,
                     (o) => !isRun
@@ -309,7 +311,7 @@ namespace Quiz_Test.ViewModel
                     (o) =>
                     {
                         CheckIfCorrect2();
-                        //isRun = !isRun;
+                        isRun = !isRun;
                     }
                     ,
                     (o) => !isRun
@@ -341,7 +343,7 @@ namespace Quiz_Test.ViewModel
                     (o) =>
                     {
                         CheckIfCorrect3();
-                        //isRun = !isRun;
+                        isRun = !isRun;
                     }
                     ,
                     (o) => !isRun
@@ -373,7 +375,7 @@ namespace Quiz_Test.ViewModel
                     (o) =>
                     {
                         CheckIfCorrect4();
-                        //isRun = !isRun;
+                        isRun = !isRun;
                     }
                     ,
                     (o) => !isRun

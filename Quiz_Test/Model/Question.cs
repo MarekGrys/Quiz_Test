@@ -33,16 +33,16 @@ namespace Quiz_Test.Model
 
             command = conn.CreateCommand();
             //command.Parameters.AddWithValue("@Variable", Question.value);
-            command.CommandText = $"SELECT * FROM Question WHERE Quiz_ID = {value}";
+            command.CommandText = $"SELECT * FROM question WHERE quiz_id = {value}";
             reader = command.ExecuteReader();
 
             while (reader.Read())
             {
                 Question question = new Question();
-                question.QuestionID = (long)reader["Question_ID"];
-                question.QuizID = (long)reader["Quiz_ID"];
-                question.QuestionName = (string)reader["Question_Name"];
-                question.QuestionOrder = (long)reader["Question_Order"];
+                question.QuestionID = (long)reader["question_id"];
+                question.QuizID = (long)reader["quiz_id"];
+                question.QuestionName = (string)reader["question_name"];
+                question.QuestionOrder = (long)reader["question_order"];
                 questiones.Add(question);
             }
             conn.Close();

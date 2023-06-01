@@ -31,17 +31,17 @@ namespace Quiz_Test.Model
             SQLiteCommand command;
 
             command = conn.CreateCommand();
-            command.CommandText = $"SELECT * FROM Answer WHERE Quiz_ID = {value}";
+            command.CommandText = $"SELECT * FROM answer WHERE quiz_id = {value}";
             reader = command.ExecuteReader();
             
             while (reader.Read())
             {
                 Answer answer = new Answer();
-                answer.AnswerID = (long)reader["Answer_ID"];
-                answer.QuestionID = (long)reader["Question_ID"];
-                answer.AnswerText = (string)reader["Answer_Text"];
-                answer.AnswerField = (long)reader["Answer_Field"];
-                answer.AnswerIsCorrect = (long)reader["Answer_IsCorrect"];
+                answer.AnswerID = (long)reader["answer_id"];
+                answer.QuestionID = (long)reader["question_id"];
+                answer.AnswerText = (string)reader["answer_text"];
+                answer.AnswerField = (long)reader["answer_field"];
+                answer.AnswerIsCorrect = (long)reader["answer_iscorrect"];
                 answers.Add(answer);
             }
             conn.Close();
