@@ -20,6 +20,7 @@ namespace Quiz_Test.ViewModel
 {
     internal class ViewModelQuiz : INotifyPropertyChanged
     {
+        #region variables
         public event PropertyChangedEventHandler PropertyChanged;
         static SQLiteConnection conn = new SQLiteConnection(@"Data Source=G:\Program Files (x86)\DBTEST\Quiz.db; Version=3");
         public List<Quiz> quizzes = Quiz.ReadData(conn);
@@ -63,7 +64,7 @@ namespace Quiz_Test.ViewModel
             }
         }
         public ObservableCollection<string> YourCollection { get; } = new ObservableCollection<string>();
-
+        #endregion
         private void LoadQuizFromDatabase()
         {
             foreach (Quiz quiz in quizzes)
@@ -72,6 +73,8 @@ namespace Quiz_Test.ViewModel
                 tmp_iter++;
             }
         }
+
+        #region commands
         private ICommand load;
         public ICommand Load
         {
@@ -91,17 +94,7 @@ namespace Quiz_Test.ViewModel
                 return load;
             }
         }
-        private string _selectedItem;
 
-        public string SelectedItem
-        {
-            get { return _selectedItem; }
-            set
-            {
-                _selectedItem = value;
-                OnPropertyChanged(nameof(SelectedItem));
-            }
-        }
         private ICommand wypisz;
         public ICommand Wypisz
         {
@@ -124,6 +117,23 @@ namespace Quiz_Test.ViewModel
             }
 
         }
+
+        public ICommand OpenNewWindowCommand { get; }
+
+        #endregion
+
+        private string _selectedItem;
+
+        public string SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                _selectedItem = value;
+                OnPropertyChanged(nameof(SelectedItem));
+            }
+        }
+        
         public void Proba()
         {
             Console.WriteLine(SelectedItem);
@@ -142,7 +152,7 @@ namespace Quiz_Test.ViewModel
             }
             Console.WriteLine(Id_quizu);
         }
-        public ICommand OpenNewWindowCommand { get; }
+
         private void OpenNewWindow()
         {
             Proba();

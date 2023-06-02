@@ -56,33 +56,7 @@ namespace Quiz_Test.ViewModel
         int correct_count = 0;
         #endregion
  
-        private ICommand wlacz;
-        public ICommand Wlacz
-        {
-            get
-            {
-                if (wlacz == null)
-                    wlacz = new RelayCommand(
-
-                    (o) =>
-                    {
-                        try
-                        {
-                            
-
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
-                        
-                    }
-                    ,
-                    (o) => !isRun
-                    );
-                return wlacz;
-            }
-        }
+       
         public string TakeAnswer(int field)
         {
             List<Answer> answers = Answer.ReadData(conn);
@@ -108,16 +82,16 @@ namespace Quiz_Test.ViewModel
             sum = count_right_answers;
             _clockModel = new QuizTimer();
             _clockModel.PropertyChanged += ClockModelPropertyChanged;
-            /*timer = new Timer(1000);
-            timer.Elapsed += Timer_Elapsed;*/
         }
+
+        #region commands
         private ICommand openNewWindow;
         public ICommand OpenNewWindow
         {
             get
             {
-                if (buttonNext == null)
-                    buttonNext = new RelayCommand(
+                if (openNewWindow == null)
+                    openNewWindow = new RelayCommand(
 
                         (o) =>
                         {
@@ -148,9 +122,11 @@ namespace Quiz_Test.ViewModel
                         ,
                         (o) => isRun
                 );
-                return buttonNext;
+                return openNewWindow;
             }
         }
+        #endregion
+
         #region AnswerStrings
 
         private string answer1;
@@ -205,53 +181,6 @@ namespace Quiz_Test.ViewModel
 
         }
         #endregion
-        public void Button1_Click()
-        {
-            Console.WriteLine("Dziala");
-        }
-        private ICommand guzik1;
-        public ICommand Guzik1
-        {
-            get
-            {
-                if (guzik1 == null)
-                    guzik1 = new RelayCommand(
-
-                    (o) =>
-                    {
-                        Button1_Click();
-                        isRun = !isRun;
-                    }
-                    ,
-                    (o) => !isRun
-                    );
-                return guzik1;
-            }
-        }
-
-        public void ButtonNext_Click()
-        {
-            Console.WriteLine("Next Question");
-        }
-        private ICommand buttonNext;
-        public ICommand ButtonNext
-        {
-            get
-            {
-                if (buttonNext == null)
-                    buttonNext = new RelayCommand(
-
-                        (o) =>
-                        {
-                            ButtonNext_Click();
-                            isRun = !isRun;
-                        }
-                        ,
-                        (o) => isRun
-                ); 
-               return buttonNext;
-            }
-        }
         public string Take_Question()
         {
             List<Question> questions = Question.ReadData(conn);
@@ -439,22 +368,6 @@ namespace Quiz_Test.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        /*private static Timer timer;
-        private int a = 0;
-        public int A
-        {
-            get => a;
-            set
-            {
-                a = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(A)));
-            }
-        }
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            A = 1;
-        }*/
         #endregion
     }
 }
