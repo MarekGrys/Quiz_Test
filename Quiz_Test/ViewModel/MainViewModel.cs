@@ -9,9 +9,10 @@ using Quiz_Test.Model;
 using System.Timers;
 using System.Data.SQLite;
 using System.Windows;
-using Prism.Mvvm;
-using Prism.Commands;
 using Quiz_Test.Views;
+using System.Windows.Controls;
+//using System.Threading;
+
 
 namespace Quiz_Test.ViewModel
 {
@@ -97,7 +98,6 @@ namespace Quiz_Test.ViewModel
             conn.Close();
             return answer1;
         }
-        public ICommand OpenNewWindowCommand { get; }
         public MainViewModel()
         {
             answer1 = TakeAnswer(1);
@@ -105,35 +105,51 @@ namespace Quiz_Test.ViewModel
             answer3 = TakeAnswer(3);
             answer4 = TakeAnswer(4);
             question_view = Take_Question();
-            OpenNewWindowCommand = new RelayCommandViews(OpenNewWindow);
             sum = count_right_answers;
-
+            _clockModel = new QuizTimer();
+            _clockModel.PropertyChanged += ClockModelPropertyChanged;
+            /*timer = new Timer(1000);
+            timer.Elapsed += Timer_Elapsed;*/
         }
-        private void OpenNewWindow()
+        private ICommand openNewWindow;
+        public ICommand OpenNewWindow
         {
-            Sum = count_right_answers;
-            isRun = !isRun;
-            try
+            get
             {
-                iter_odp_pomoc += 4;
-                correct_count += 4;
-                iter_question++;
-                Next();
-                Console.WriteLine(count_right_answers);
-                
+                if (buttonNext == null)
+                    buttonNext = new RelayCommand(
+
+                        (o) =>
+                        {
+                            Sum = count_right_answers;
+                            isRun = !isRun;
+                            try
+                            {
+                                iter_odp_pomoc += 4;
+                                correct_count += 4;
+                                iter_question++;
+                                Next();
+                                Console.WriteLine(count_right_answers);
+
+                            }
+                            catch (Exception ex)
+                            {
+                                quizzes.Clear();
+                                questions.Clear();
+                                answers.Clear();
+                                SingletonAnswers.Instance.SingletonValue = Sum.ToString();
+                                SingletonStopTimer.Instance.SingletonValue = DateTime.Now.ToString();
+                                FirstView newWindow = new FirstView();
+                                newWindow.Show();
+                                Application.Current.MainWindow.Close();
+                                Application.Current.MainWindow = newWindow;
+                            }
+                        }
+                        ,
+                        (o) => isRun
+                );
+                return buttonNext;
             }
-            catch (Exception ex)
-            {
-                quizzes.Clear();
-                questions.Clear();
-                answers.Clear();
-                SingletonAnswers.Instance.SingletonValue = Sum.ToString();
-                FirstView newWindow = new FirstView();
-                newWindow.Show();
-                Application.Current.MainWindow.Close();
-                Application.Current.MainWindow = newWindow;
-            }
-            
         }
         #region AnswerStrings
 
@@ -384,6 +400,7 @@ namespace Quiz_Test.ViewModel
             }
         }
         #endregion
+       
         #region Sum_Points
 
         private int sum;
@@ -397,8 +414,47 @@ namespace Quiz_Test.ViewModel
             }
 
         }
-        
+
         #endregion
 
+        #region timer
+        private QuizTimer _clockModel;
+
+        public string CurrentTime
+        {
+            get { return _clockModel.CurrentTime; }
+        }
+
+
+
+        private void ClockModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "CurrentTime")
+            {
+                OnPropertyChanged("CurrentTime");
+            }
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /*private static Timer timer;
+        private int a = 0;
+        public int A
+        {
+            get => a;
+            set
+            {
+                a = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(A)));
+            }
+        }
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            A = 1;
+        }*/
+        #endregion
     }
 }

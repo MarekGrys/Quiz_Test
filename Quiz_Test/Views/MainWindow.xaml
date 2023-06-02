@@ -54,9 +54,9 @@
                    FontSize="30"/>
         <Button x:Name="NextView"
                 Grid.Row="2"
-                Content="{Binding Sum, Mode=TwoWay}"
+                Content="Następne pytanie"
                 FontSize="20"
-                Command="{Binding OpenNewWindowCommand, Mode=OneWay}"/>
+                Command="{Binding OpenNewWindow, Mode=OneWay}"/>
 
 
     </Grid>

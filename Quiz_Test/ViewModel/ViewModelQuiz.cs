@@ -148,6 +148,7 @@ namespace Quiz_Test.ViewModel
             Proba();
             Znajdz_ID();
             SingletonQuiz.Instance.SingletonValue = Id_quizu.ToString();
+            SingletonStartTimer.Instance.SingletonValue = DateTime.Now.ToString();
             MainWindow newWindow = new MainWindow();
             newWindow.Show();
             Application.Current.MainWindow.Close();
