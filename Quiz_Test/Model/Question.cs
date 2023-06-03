@@ -11,7 +11,7 @@ namespace Quiz_Test.Model
 {
     class Question
     {
-        private static long value = long.Parse(SingletonQuiz.Instance.SingletonValue);
+        private static long value = long.Parse(Singleton.Instance.SingletonValueQuizID);
         public long Value
         {
             get => value;

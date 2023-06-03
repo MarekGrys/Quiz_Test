@@ -111,9 +111,8 @@ namespace Quiz_Test.ViewModel
                                 quizzes.Clear();
                                 questions.Clear();
                                 answers.Clear();
-                                SingletonAnswers.Instance.SingletonValue = Sum.ToString();
-                                //SingletonStopTimer.Instance.SingletonValue = DateTime.Now.ToString();
-                                SingletonStartTimer.Instance.SingletonValueEnd = DateTime.Now.ToString();
+                                Singleton.Instance.SingletonValueRightAnswers = Sum.ToString();
+                                Singleton.Instance.SingletonValueEndTimer = DateTime.Now.ToString();
                                 FirstView newWindow = new FirstView();
                                 newWindow.Show();
                                 Application.Current.MainWindow.Close();
