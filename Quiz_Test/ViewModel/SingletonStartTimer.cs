@@ -10,7 +10,8 @@ namespace Quiz_Test.ViewModel
     internal class SingletonStartTimer
     {
         private static SingletonStartTimer _instance;
-        private string _singletonValue;
+        private string _singletonValuestart;
+        private string _singletonValuestop;
 
         public static SingletonStartTimer Instance
         {
@@ -22,13 +23,23 @@ namespace Quiz_Test.ViewModel
             }
         }
 
-        public string SingletonValue
+        public string SingletonValueStart
         {
-            get { return _singletonValue; }
+            get { return _singletonValuestart; }
             set
             {
-                _singletonValue = value;
-                OnPropertyChanged(nameof(SingletonValue));
+                _singletonValuestart = value;
+                OnPropertyChanged(nameof(SingletonValueStart));
+            }
+        }
+
+        public string SingletonValueEnd
+        {
+            get { return _singletonValuestop; }
+            set
+            {
+                _singletonValuestop = value; 
+                OnPropertyChanged(nameof(SingletonValueEnd));
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;

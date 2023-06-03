@@ -84,7 +84,6 @@
     <Compile Include="ViewModel\SingletonAnswers.cs" />
     <Compile Include="ViewModel\SingletonQuiz.cs" />
     <Compile Include="ViewModel\SingletonStartTimer.cs" />
-    <Compile Include="ViewModel\SingletonStopTimer.cs" />
     <Compile Include="ViewModel\ViewModelQuiz.cs" />
     <Compile Include="Views\FirstView.xaml.cs">
       <DependentUpon>FirstView.xaml</DependentUpon>
