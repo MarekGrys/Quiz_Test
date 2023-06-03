@@ -107,7 +107,7 @@ namespace Quiz_Test.ViewModel
                     {
                         Proba();
                         Znajdz_ID();
-                        SingletonQuiz.Instance.SingletonValue = id_quizu.ToString();
+                        Singleton.Instance.SingletonValueQuizID = id_quizu.ToString();
                     }
                     ,
                     (o) => !isRun

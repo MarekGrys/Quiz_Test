@@ -15,7 +15,7 @@ namespace Quiz_Test.ViewModel
 {
     internal class ShowEnd
     {
-        private string value =  "Liczba poprawnych odpowiedzi: " + SingletonAnswers.Instance.SingletonValue;
+        private string value =  "Liczba poprawnych odpowiedzi: " + Singleton.Instance.SingletonValueRightAnswers;
         static DateTime starttime = DateTime.Parse(Singleton.Instance.SingletonValueStartTimer);
         static DateTime endtime = DateTime.Parse(Singleton.Instance.SingletonValueEndTimer);
         string completiontime = "Czas wykonania quizu: "+endtime.Subtract(starttime).ToString();

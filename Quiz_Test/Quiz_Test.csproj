@@ -81,8 +81,6 @@
     <Compile Include="Model\QuizTimer.cs" />
     <Compile Include="ViewModel\RelayCommandViews.cs" />
     <Compile Include="ViewModel\ShowEnd.cs" />
-    <Compile Include="ViewModel\SingletonAnswers.cs" />
-    <Compile Include="ViewModel\SingletonQuiz.cs" />
     <Compile Include="ViewModel\Singleton.cs" />
     <Compile Include="ViewModel\ViewModelQuiz.cs" />
     <Compile Include="Views\FirstView.xaml.cs">
