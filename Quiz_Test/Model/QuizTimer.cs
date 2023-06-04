@@ -38,7 +38,7 @@ namespace Quiz_Test.Model
 
         private void StartClock()
         {
-            System.Timers.Timer timer = new System.Timers.Timer(1000); // Odliczanie co 1 sekundę
+            System.Timers.Timer timer = new System.Timers.Timer(1000);
             timer.Elapsed += TimerElapsed;
             timer.Start();
         }

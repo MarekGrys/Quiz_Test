@@ -27,18 +27,9 @@ namespace Quiz_Test.ViewModel
         List<Quiz> quizzes =  Quiz.ReadData(conn);
         List<Question> questions =  Question.ReadData(conn);
         List<Answer> answers = Answer.ReadData(conn);
-        SQLiteDataReader reader;
-        SQLiteCommand command;
+        //SQLiteDataReader reader;
+        //SQLiteCommand command;
         private int iter_question = 0;
-        int Iter_question
-        {
-            get => iter_question;
-            set
-            {
-                iter_question = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(iter_question)));
-            }
-        }
         int iter_odp = 0;
         private int iter_odp_pomoc = 4;
         int Iter_odp_pomoc 
@@ -49,8 +40,7 @@ namespace Quiz_Test.ViewModel
                 iter_odp_pomoc = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(iter_odp_pomoc)));
             }
-        }
-        
+        }       
         int count_right_answers = 0;
         long correct_check = 1;
         int correct_count = 0;

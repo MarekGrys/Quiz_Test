@@ -37,10 +37,10 @@ namespace Quiz_Test.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(id_quizu)));
             }
         }
-        public ViewModelQuiz() 
+        public ViewModelQuiz()
         {
             OpenNewWindowCommand = new RelayCommandViews(OpenNewWindow);
-        }  
+        }
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

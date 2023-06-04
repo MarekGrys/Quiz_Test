@@ -17,20 +17,17 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <ListBox Grid.Row="1" 
-                 x:Name="ListBox"
-            ItemsSource="{Binding YourCollection}"
-                 MouseDoubleClick="ListBox_MouseDoubleClick"/>
+        
         <Button Grid.Row="0"
                 Content="Załaduj Quizy"
                 FontSize="40"
                 Command="{Binding Load}"/>
-        <ComboBox Grid.Row="2"
+        <ComboBox Grid.Row="1"
                   ItemsSource="{Binding YourCollection}"
-                  SelectedItem="{Binding SelectedItem}"/>
-        <Button Grid.Row="3"
+                  SelectedItem="{Binding SelectedItem}"
+                  FontSize="20"/>
+        <Button Grid.Row="2"
                 Content="Wypisz"
                 FontSize="30"
                 Command="{Binding OpenNewWindowCommand}"/>
