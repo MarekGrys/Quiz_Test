@@ -31,7 +31,9 @@ namespace Quiz_Test.Model
             SQLiteCommand command;
 
             command = conn.CreateCommand();
-            command.CommandText = $"SELECT * FROM answer WHERE quiz_id = {value}";
+            command.CommandText = $"SELECT Answer_ID, Question.Question_ID, Answer_Text, Answer_Field, Answer_IsCorrect, Quiz.Quiz_ID FROM Answer" +
+                $" INNER JOIN Question ON Question.Question_ID = Answer.Question_ID" +
+                $" INNER JOIN Quiz ON Quiz.Quiz_ID = Question.Quiz_ID WHERE Quiz.Quiz_ID = {value}";
             reader = command.ExecuteReader();
             
             while (reader.Read())

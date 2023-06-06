@@ -86,7 +86,7 @@ namespace Quiz_Test.ViewModel
                     (o) =>
                     {
                         LoadQuizFromDatabase();
-                        //isRun = !isRun;
+                        isRun = !isRun;
                     }
                     ,
                     (o) => !isRun
